@@ -1,0 +1,16 @@
+name: GalaxyTPA
+author: Galaxy
+description: TPA z GUI i statystykami w hoverze nicku
+version: 1.0.0
+main: pl.galaxy.tpa.GalaxyTPA
+api-version: '1.21'
+softdepend: [Vault]
+commands:
+  tpa:
+    description: Wyślij prośbę o teleportację
+  tpaccept:
+    description: Zaakceptuj prośbę
+  tpdeny:
+    description: Odrzuć prośbę
+  galaxytpa:
+    description: Przeładuj config (OP)

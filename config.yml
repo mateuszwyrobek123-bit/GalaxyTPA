@@ -1,0 +1,169 @@
+# ============================================================
+#  GalaxyTPA - konfiguracja
+#  Kolory: &a &c &7 itd.   Puste "" przy wiadomości = wiadomość wyłączona
+#  Po zmianach wpisz /galaxytpa reload (tylko OP) albo zrestartuj serwer
+# ============================================================
+
+settings:
+  countdown-seconds: 5          # ile sekund trwa odliczanie (0 = od razu)
+  cancel-on-move: true          # ruch anuluje teleportację
+  request-expire-seconds: 60    # po ilu sekundach prośba wygasa (0 = nigdy)
+  title-enabled: true           # napis na środku ekranu
+  actionbar-enabled: true       # napis nad paskiem życia
+  title-stay-ticks: 30          # jak długo widać napis (20 ticków = 1 s)
+
+# ------------------------------------------------------------
+#  Czat: najechanie na wiadomość = statystyki, klik = GUI
+#  Uwaga: plugin sam wysyła wiadomości, więc zastępuje formatowanie
+#  czatu z innych pluginów (np. LuckPermsChatFormatter).
+#  Jeśli to przeszkadza, ustaw enabled: false.
+# ------------------------------------------------------------
+chat:
+  enabled: true
+  format: "&7{player} &8» {message}"   # {player} {message}
+  message-color: "&f"
+  hover-enabled: true
+  click-enabled: true
+  # linie hovera, dostępne: {player} {money} {kills} {deaths} {time}
+  hover:
+    - "&7{player}"
+    - "&a$ {money} dolarów"
+    - "&c⚔ {kills} zabójstw"
+    - "&7☠ {deaths} śmierci"
+    - "&e⌚ {time} spędzonego czasu"
+    - ""
+    - "&aKliknij, aby wysłać prośbę o teleportację!"
+
+stats:
+  money-format: "%.2f"                 # np. %.0f = bez groszy
+  time-format: "{h}h {m}m {s}s"        # {h} {m} {s}
+
+# ------------------------------------------------------------
+#  GUI
+#  rows: 1-6 rzędów
+#  filler: materiał tła (np. GRAY_STAINED_GLASS_PANE) albo NONE
+#  Przedmiot: slot (0 = lewy górny róg), material, name, lore,
+#  left-click / right-click: SEND, ACCEPT, DENY, CLOSE lub NONE
+#  Nazwa/opis: {player} = gracz, którego dotyczy prośba
+#  Przedmiot z materiałem PLAYER_HEAD ma skina tego gracza.
+#  Możesz dodawać własne przedmioty (nowy klucz pod items).
+# ------------------------------------------------------------
+gui:
+  # otwiera się po kliknięciu w wiadomość gracza na czacie
+  send:
+    title: "&7Akceptacja prośby..."
+    rows: 4
+    filler: NONE
+    items:
+      confirm:
+        slot: 11
+        material: LIME_DYE
+        name: "&aWyślij prośbę!"
+        lore:
+          - "&7» &fKlikając ten przycisk wykonasz prośbę"
+          - "&7» &fteleportacji do gracza: &f{player}"
+        left-click: SEND
+        right-click: SEND
+      head:
+        slot: 13
+        material: PLAYER_HEAD
+        name: "&fProśba o teleportację do &f{player}"
+        lore:
+          - "&7» &fKliknij &apo lewo &faby wysłać"
+          - "&7» &fKliknij &cpo prawo &faby anulować"
+        left-click: SEND
+        right-click: CLOSE
+      cancel:
+        slot: 15
+        material: RED_DYE
+        name: "&cNie wysyłaj prośby!"
+        left-click: CLOSE
+        right-click: CLOSE
+      close:
+        slot: 31
+        material: BARRIER
+        name: "&cZamknij!"
+        left-click: CLOSE
+        right-click: CLOSE
+
+  # otwiera się, gdy ktoś wysłał prośbę do Ciebie (klik w jego nick)
+  accept:
+    title: "&7Akceptacja prośby..."
+    rows: 4
+    filler: NONE
+    items:
+      confirm:
+        slot: 11
+        material: LIME_DYE
+        name: "&aZaakceptuj prośbę!"
+        lore:
+          - "&7» &fKliknij, aby zaakceptować"
+          - "&7» &fteleportację gracza: &f{player}"
+        left-click: ACCEPT
+        right-click: ACCEPT
+      head:
+        slot: 13
+        material: PLAYER_HEAD
+        name: "&fProśba o teleportację od &f{player}"
+        lore:
+          - "&7» &fKliknij &apo lewo &faby zaakceptować"
+          - "&7» &fKliknij &cpo prawo &faby odrzucić"
+        left-click: ACCEPT
+        right-click: DENY
+      deny:
+        slot: 15
+        material: RED_DYE
+        name: "&cOdrzuć prośbę!"
+        lore:
+          - "&7» &fKliknij, aby odrzucić"
+          - "&7» &fprośbę od &f{player}"
+        left-click: DENY
+        right-click: DENY
+      close:
+        slot: 31
+        material: BARRIER
+        name: "&cZamknij!"
+        left-click: CLOSE
+        right-click: CLOSE
+
+# ------------------------------------------------------------
+#  Wiadomości
+#  Dostępne zmienne: {player} oraz {seconds} (tam, gdzie pasują)
+# ------------------------------------------------------------
+messages:
+  only-players: "Tylko dla graczy."
+  no-permission: "&cTa komenda jest tylko dla OP."
+  reload-done: "&aPrzeładowano config GalaxyTPA!"
+
+  usage-tpa: "&7Poprawne użycie&8: &f/tpa [nick]"
+  usage-tpaccept: "&7Poprawne użycie&8: &f/tpaccept [nick/*]"
+  usage-tpdeny: "&7Poprawne użycie&8: &f/tpdeny [nick]"
+  player-not-found: "&cNie odnaleziono takiego gracza na serwerze!"
+  player-offline: "&cGracz jest offline!"
+  cannot-self: "&cNie możesz teleportować się do siebie!"
+  no-request: "&cNie posiadasz od tego gracza prośby o teleportację!"
+  no-requests: "&cNie posiadasz żadnych próśb o teleportację!"
+
+  request-sent: "&aWysłano prośbę o teleportację do gracza &2{player}&a!"
+  # wiadomość u odbiorcy; {player} to klikalny nick
+  request-received: "&7Gracz {player} &7wysłał prośbę o teleportację!"
+  request-received-player: "&e{player}"
+  request-received-hover: "&7Kliknij, aby otworzyć GUI z prośbą od &e{player}"
+  # dodatkowe linie pod powiadomieniem (jak w skrypcie); pusta lista [] = wyłączone
+  request-received-extra:
+    - "&7Wpisz &e/tpaccept {player} &7aby zaakceptować"
+    - "&7Wpisz &e/tpaccept * &7aby zaakceptować wszystkich"
+    - "&7Wpisz &e/tpdeny {player} &7aby odrzucić"
+
+  accepted-self: "&aZaakceptowałeś prośbę o teleportację od &2{player}&a!"
+  accepted-all: "&aZaakceptowałeś prośby o teleportację od &2{count} &agraczy!"
+  accepted-other: "&7Gracz &e{player} &7zaakceptował twoją prośbę o teleportację!"
+  teleport-soon: "&7Zostaniesz przeteleportowany za &a{seconds}s&7!"
+  denied-self: "&aOdrzuciłeś prośbę o teleportację od gracza &2{player}&a!"
+  denied-other: "&cTwoja prośba o teleportację do &e{player} &czostała odrzucona."
+
+  countdown: "&7Zostaniesz &fprzeteleportowany &7za &a{seconds}s&7!"
+  teleported-title: "&7Zostałeś &fprzeteleportowany&7!"
+  teleported-chat: "&aZostałeś przeteleportowany!"
+  cancelled-title: "&7Teleportacja &azostała &7anulowana!"
+  cancelled-chat: "&cAnulowano teleportację z powodu ruchu!"
